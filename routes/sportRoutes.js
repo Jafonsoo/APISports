@@ -15,16 +15,33 @@ const Sport = require("../models/sportModels");
       res.status(500).send('Internal Server Error');
     }
   });
+
+// sport/edit
+
+
+//sports/delete
+
+
+router.get("/delete/{id}", async(req, res) => {
+  try {
+    const sport = await Sport.deleteOne();
+    if (!sport) return res.status(409).send('Dados não apagados.');
+    return res.status(200).send(sport);
+  } catch (error) {
+    res.status(500).send('Internal Server Error');
+  }
+})
+
 // sport/list
   router.get("/list", async (req, res) => {
       try {
         // check if any sport person exists 
         const sport = await Sport.find();
         //console.log(sport);
-        if (!sport) return res.status(409).send('No sports person exists.');
+        if (!sport) return res.status(409).send('Dados não criados.');
         return res.status(200).send(sport);
       } catch (err) {
-        res.status(500).send('Internal Server Error');
+        res.status(500).send('Ocorreu um erro a obter a lista');
       }
   });
 

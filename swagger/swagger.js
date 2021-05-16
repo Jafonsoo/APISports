@@ -205,6 +205,7 @@
  *     responses:
  *       200:
  *         description: OK.
+ * 
  *
  * /sport/search/datacovid:
  *   get:
@@ -217,7 +218,7 @@
  *         required: false
  *         name: datacovid
  *         description: Especifique a data no formato dd-mm-yy.
- *         example: 01-04-2019
+ *         example: 01/04/2019
  *     responses:
  *       200:
  *         description: A lista dos sports.

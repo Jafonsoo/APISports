@@ -51,7 +51,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 require('./routes/index')(app);
 
 
-const port = process.env.PORT || 8002;
+const port = process.env.PORT || 8008;
 
 
 app.listen(port, () => {
