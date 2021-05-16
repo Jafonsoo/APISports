@@ -26,7 +26,7 @@ const swaggerDefinition = {
     description: " API com informação da dimensão do virus no mundo do desporto",
     license: {
       name: "Joao Aires e Marcelo Lopes",
-      url: "https://github.com/.../"
+      url: "https://github.com/Jafonsoo/APICoronaSports"
     }
     
   },
@@ -51,7 +51,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 require('./routes/index')(app);
 
 
-const port = process.env.PORT || 8008;
+const port = process.env.PORT || 8080;
 
 
 app.listen(port, () => {

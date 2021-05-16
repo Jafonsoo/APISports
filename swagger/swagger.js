@@ -69,19 +69,19 @@
  *       properties:
  *         name:
  *           type: string
- *           description: Nome da sports person.
+ *           description: Nome da pessoa no desporto.
  *           example: João
  *         nacionalidade:
  *           type: string
- *           description: A nacionalidade da sports person.
+ *           description: A nacionalidade da pessoa no desporto.
  *           example: Portugues
  *         equipa:
  *           type: string
- *           description: Equipa da sports person.
+ *           description: Equipa da pessoa no desporto.
  *           example: Benfica
  *         funcao:
  *           type: string
- *           description: Função da sports person.
+ *           description: Função da pessoa no desporto.
  *           example: Jogador
  *         datacovid:
  *           type: string
@@ -89,10 +89,10 @@
  *           example: 12/7/2021
  *         estadoatual:
  *           type: string
- *           description: Estado atual da sports person.
+ *           description: Estado atual da pessoa no desporto.
  *           example: Infetado
  * 
- *     Sports:
+ *     PessoaDeDesporto:
  *       allOf:
  *         - type: object
  *           properties:
@@ -106,7 +106,7 @@
  *   post:
  *     tags: 
  *       - User Requests
- *     summary: Registre um user.
+ *     summary: Registe um user.
  *     requestBody:
  *       required: true
  *       content:
@@ -157,7 +157,7 @@
  *                   type: string
  *                   description: The jsonwebtoken value.
  *                   example: eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiVmFnbmVyQm9tSmVzdXMiLCJVc2VybmFtZSI6IlZhZ25lciBCb20gSmVzdXMifQ.v4BcDDTFqMXhpi7ofKmhDLkkiiNtPXYlvZGgS8gU38M
- *
+ * 
  *  @swagger
  * /user/isAuthorized:
  *   get:
@@ -178,7 +178,7 @@
  *   post:
  *     tags: 
  *       - Sports Requests
- *     summary: Create a Todo.
+ *     summary: Crie uma pessoa no desporto.
  *     requestBody:
  *       required: true
  *       content:
@@ -189,7 +189,7 @@
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: Created a Todo.
+ *         description: Crie uma pessoa no desporto.
  *         content:
  *           application/json:
  *             schema:
@@ -200,34 +200,81 @@
  *   get:
  *     tags: 
  *       - Sports Requests
- *     summary: Lista dos Sports Person.
- *     description: Retorna a lista de Sports Person
+ *     summary: Lista dos Pessoas nos Desportos.
+ *     description: Retorna a lista de Pessoas nos Desportos
  *     responses:
  *       200:
  *         description: OK.
- * 
  *
  * /sport/search/datacovid:
  *   get:
  *     tags: 
  *       - Sports Requests
- *     summary: Consulte aqui todos os dados de uma respetiva Data de infeção.
+ *     summary: Consulte aqui todos os dados de uma respetiva Data de infeção de uma pessoa no desporto.
  *     description: Os dados podem ser obtidos com base a consulta realizada
  *     parameters:
  *       - in: query
  *         required: false
  *         name: datacovid
  *         description: Especifique a data no formato dd-mm-yy.
- *         example: 01/04/2019
+ *         example: 01-04-2019
  *     responses:
  *       200:
- *         description: A lista dos sports.
- *         content:
- *           application/json:
- *             schema:
- *                   type: array
- *                   items:
- *                     $ref: '#/components/schemas/Sports'
+ *         description: A lista das pessoas no desporto.
+ * 
+ * 
+ * /sport/search/nacionalidade:
+ *   get:
+ *     tags: 
+ *       - Sports Requests
+ *     summary: Consulte aqui todos os dados de uma respetiva Nacionalidade de uma pessoa no desporto.
+ *     description: Os dados podem ser obtidos com base a consulta realizada
+ *     parameters:
+ *       - in: query
+ *         required: false
+ *         name: nacionalidade
+ *         description: Especifique uma nacionalidade.
+ *         example: Portugues
+ *         schema:
+ *             enum: ["Portuguesa", "Inglesa", "Espanhola"]
+ *     responses:
+ *       200:
+ *         description: A lista das pessoas no desporto.
+ * 
+ * /sport/search/name:
+ *   get:
+ *     tags: 
+ *       - Sports Requests
+ *     summary: Consulte aqui todos os dados de um respetiv Nome de uma pessoa no desporto.
+ *     description: Os dados podem ser obtidos com base a consulta realizada
+ *     parameters:
+ *       - in: query
+ *         required: false
+ *         name: name
+ *         description: Especifique um Nome.
+ *         example: Fernando
+ *     responses:
+ *       200:
+ *         description: A lista das pessoas no desporto.
+ * 
+ * 
+ * /sport/search/estadoatual:
+ *   get:
+ *     tags: 
+ *       - Sports Requests
+ *     summary: Consulte aqui todos os dados de uma respetiva estado atual de uma pessoa no desporto.
+ *     description: Os dados podem ser obtidos com base a consulta realizada
+ *     parameters:
+ *       - in: query
+ *         required: false
+ *         name: estadoatual
+ *         description: Especifique uma estado atual.
+ *         example: Infetado
+ *         schema:
+ *             enum: ["Infetado", "Recuperado", "Falecido"]
+ *     responses:
+ *       200:
+ *         description: A lista das pessoas no desporto.
  * /sport/search/equipa:
  *   get:
  *     tags: 
@@ -240,21 +287,17 @@
  *         required: false
  *         description: Especifique uma equipa.
  *         example: Benfica
+ *         schema:
+ *             enum: ["Benfica", "Sporting", "Porto"]
  *     responses:
  *       200:
- *         description: A lista dos sports.
- *         content:
- *           application/json:
- *             schema:
- *                   type: array
- *                   items:
- *                     $ref: '#/components/schemas/Sports'
+ *         description: A lista das pessoas no desporto.
  * 
  * /sport/search/funcao:
  *   get:
  *     tags: 
  *       - Sports Requests
- *     summary: Consulte aqui todos os dados de uma respetiva função.
+ *     summary: Consulte aqui todos os dados de uma respetiva função de pessoa no desporto.
  *     description: Os dados podem ser obtidos com base a consulta realizada
  *     parameters:
  *       - in: query
@@ -262,14 +305,10 @@
  *         required: false
  *         description: Especifique a função.
  *         example: Médico
+ *         schema:
+ *             enum: ["Jogador", "Treinador", "Fisioterapeuta"]
  *     responses:
  *       200:
- *         description: A lista dos sports.
- *         content:
- *           application/json:
- *             schema:
- *                   type: number
- *                   items:
- *                     $ref: '#/components/schemas/Sports'
+ *         description: A lista das pessoas no desporto.
  * 
  */
