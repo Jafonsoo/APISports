@@ -14,7 +14,7 @@ function generateJWTToken(userId) {
     id: userId
   };
 
-  return jwt.sign(payload, secret, { expiresIn: "50min" });
+  return jwt.sign(payload, secret, { expiresIn: "10min" });
 }
 
 module.exports = generateJWTToken;

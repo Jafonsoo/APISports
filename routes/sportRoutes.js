@@ -1,10 +1,11 @@
 // importing the express library but destructuring just the Router logic
-const { Router } = require("express");
-// create a new router
-const router = new Router();
+var express = require('express');
+var router = express.Router();
+
+
 const Sport = require("../models/sportModels");
 // sport/create
-  router.post("/create", async  (req, res) => {
+  router.post("/create",  (req, res) => {
     try {
       var sport = new Sport(req.body);
       if (!sport) return res.status(409).send('Os dados já existem.');

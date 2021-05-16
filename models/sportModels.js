@@ -6,7 +6,7 @@ const SportsSchema = new Schema({
     type: String,
     required: true,
   },
-  naciocalidade: {
+  nacionalidade: {
     type: String,
     required: true,
   },
@@ -29,10 +29,5 @@ const SportsSchema = new Schema({
   },
   
 });
-
-// Exportar Dados Model
-var Sport = module.exports = mongoose.model('Sport', SportsSchema);
-
-module.exports.get = function (callback, limit) {
-  Sport.find(callback).limit(limit);
-}
+mongoose.model('Sport', SportsSchema);
+module.exports = mongoose.model('Sport');

@@ -30,32 +30,6 @@ const swaggerDefinition = {
     }
     
   },
-  servers: [
-    {
-      url: 'http://localhost:3030 ',
-      description: ' Development server'
-    },
-  ],
-  host: "",
-  basePath: "/",
-  tags: [
-    {
-      "name": "User Requests",
-      "description": "Pedidos Disponíveis",
-      "externalDocs": {
-        "description": "Operações sobre o User",
-        "url": ""
-      }
-    },
-    {
-      "name": "Mortos Requests",
-      "description": "Pedidos Disponíveis",
-      "externalDocs": {
-        "description": "Operações sobre o Mortos",
-        "url": ""
-      }
-    },
-  ]
 };
 
 const options = {
@@ -77,7 +51,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 require('./routes/index')(app);
 
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 8002;
 
 
 app.listen(port, () => {
