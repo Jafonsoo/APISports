@@ -10,7 +10,7 @@ const isAuthorized = async (req, res, next) => {
       next();
     });
   } catch (err) {
-    //console.log('isAuthorized:\n' + err);
+    console.log('isAuthorized:\n' + err);
     res.status(500).send('Internal Server Error');
   }
 }

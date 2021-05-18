@@ -4,11 +4,16 @@ var router = express.Router();
 
 
 const Sport = require("../models/sportModels");
+
 // sport/create
   router.post("/create",  (req, res) => {
     try {
       var sport = new Sport(req.body);
-      if (!sport) return res.status(409).send('Os dados jรก existem.');
+      if (!sport){
+        
+        return res.status(409).send('Verifique a ligação.');
+
+      }
       sport.save();
       return res.status(200).send(sport);
     } catch (err) {
@@ -22,7 +27,9 @@ const Sport = require("../models/sportModels");
         // check if any sport person exists 
         const sport = await Sport.find();
         //console.log(sport);
-        if (!sport) return res.status(409).send('No sports person exists.');
+        if (!sport){
+           return res.status(409).send('No sports person exists.');
+        }
         return res.status(200).send(sport);
       } catch (err) {
         res.status(500).send('Internal Server Error');
@@ -34,7 +41,9 @@ const Sport = require("../models/sportModels");
       const query = req.query;
       // check if any total exists 
       const sport = await Sport.find(query);
-      if (!sport) return res.status(409).send('No person was infected in this day exists.');
+      if (!sport){
+         return res.status(409).send('No person was infected in this day exists.');
+      }
       return res.status(200).send(sport);
     } catch (err) {
       res.status(500).send('Internal Server Error');
@@ -46,7 +55,9 @@ const Sport = require("../models/sportModels");
       const query = req.query;
       // check if any total exists 
       const sport = await Sport.find(query);
-      if (!sport) return res.status(409).send('No person with this nationality exists.');
+      if (!sport) {
+        return res.status(409).send('No person with this nationality exists.');
+      }
       return res.status(200).send(sport);
     } catch (err) {
       res.status(500).send('Internal Server Error');
@@ -58,7 +69,9 @@ const Sport = require("../models/sportModels");
       const query = req.query;
       // check if any total exists 
       const sport = await Sport.find(query);
-      if (!sport) return res.status(409).send('No person with this name exists.');
+      if (!sport) {
+        return res.status(409).send('No person with this name exists.');
+      }
       return res.status(200).send(sport);
     } catch (err) {
       res.status(500).send('Internal Server Error');
@@ -70,7 +83,9 @@ const Sport = require("../models/sportModels");
       const query = req.query;
       // check if any total exists 
       const sport = await Sport.find(query);
-      if (!sport) return res.status(409).send('No person in this state exists.');
+      if (!sport){
+         return res.status(409).send('No person in this state exists.');
+      }
       return res.status(200).send(sport);
     } catch (err) {
       res.status(500).send('Internal Server Error');

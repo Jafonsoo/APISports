@@ -5,53 +5,120 @@
  *     bearerAuth:
  *       type: http
  *       scheme: bearer
- *       bearerFormat: JWT
- * 
+ *       bearerFormat: JWT 
  *   schemas:
- *     User:
- *       type: object
- *       properties:
- *         _id:
- *           type: objectId
- *           description: O ID do user.
- *           example: 6091316840c37846f8ed1a0f
- *         name:
- *           type: string
- *           description: O nome do user.
- *           example: user_admin
- *         email:
- *           type: string
- *           description: O e-mail do user.
- *           example: user@user.com
- * 
- *     RegisterUser:
- *       type: object
- *       properties:
- *         name:
- *           type: string
- *           description: O nome de user.
- *           example: user_admin
- *         email:
- *           type: string
- *           description: O e-mail do user.
- *           example: user@user.com
- *         password:
- *           type: string
- *           description:  A password do user.
- *           example: user_password
- * 
  *     LoginUser:
  *       type: object
  *       properties:
  *         email:
  *           type: string
- *           description: O e-mail do user.
- *           example: user@user.com
+ *           description: The user email.
+ *           example: express@gmail.com
  *         password:
  *           type: string
- *           description: A password do user.
- *           example: user_password
+ *           description: The user password.
+ *           example: express_password
+ *     RegisterUser:
+ *       type: object
+ *       properties:
+ *         email:
+ *           type: string
+ *           description: The user email.
+ *           example: express@gmail.com
+ *         password:
+ *           type: string
+ *           description: The user password.
+ *           example: express_password
+ *         name:
+ *           type: string
+ *           description: The user name.
+ *           example: express_user
+ *     User:
+ *       type: object
+ *       properties:
+ *         _id:
+ *           type: objectId
+ *           description: The user ID.
+ *           example: 60535c8a0f1f7e244eee6f79
+ *         email:
+ *           type: string
+ *           description: The user email.
+ *           example: express@gmail.com
+ *         name:
+ *           type: string
+ *           description: The user name.
+ *           example: express_user
  * 
+ * /user/register:
+ *   post:
+ *     tags: 
+ *       - User Requests
+ *     summary: Registe um utilizador.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/RegisterUser'
+ *     responses:
+ *       201:
+ *         description: Criou um utilizador.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 auth:
+ *                   type: boolean
+ *                   description: O valor booleano da autenticação.
+ *                   example: true
+ *                 token:
+ *                   type: string
+ *                   description: O valor jsonwebtoken.
+ *                   example: eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiVmFnbmVyQm9tSmVzdXMiLCJVc2VybmFtZSI6IlZhZ25lciBCb20gSmVzdXMifQ.v4BcDDTFqMXhpi7ofKmhDLkkiiNtPXYlvZGgS8gU38M
+ *
+ * /user/login:
+ *   post:
+ *     tags: 
+ *       - User Requests
+ *     summary: Login.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/LoginUser'
+ *     responses:
+ *       201:
+ *         description: Logged in.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 auth:
+ *                   type: boolean
+ *                   description: The authentication boolean value.
+ *                   example: true
+ *                 token:
+ *                   type: string
+ *                   description: The jsonwebtoken value.
+ *                   example: eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiVmFnbmVyQm9tSmVzdXMiLCJVc2VybmFtZSI6IlZhZ25lciBCb20gSmVzdXMifQ.v4BcDDTFqMXhpi7ofKmhDLkkiiNtPXYlvZGgS8gU38M
+ * 
+ * /user/isAuthorized:
+ *   get:
+ *     tags: 
+ *       - User Requests
+ *     summary: Verifique a autorização do utilizador.
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       201:
+ *         description: Verifique a autorização do utilizador.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
  */
 
 
@@ -91,94 +158,14 @@
  *           type: string
  *           description: Estado atual da pessoa no desporto.
  *           example: Infetado
- * 
- *     PessoaDeDesporto:
- *       allOf:
- *         - type: object
- *           properties:
- *             _id:
- *               type: objectId
- *               description: O ID de tarefas.
- *               example: 6091316840c37846f8ed1a0f
- *         - $ref: '#/components/schemas/NovosSports'
  *
- * /user/register:
- *   post:
- *     tags: 
- *       - User Requests
- *     summary: Registe um user.
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/RegisterUser'
- *     responses:
- *       200:
- *         description: Criou um user.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 auth:
- *                   type: boolean
- *                   description: O valor booleano da autenticação.
- *                   example: true
- *                 token:
- *                   type: string
- *                   description: O valor jsonwebtoken.
- *                   example: eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiVmFnbmVyQm9tSmVzdXMiLCJVc2VybmFtZSI6IlZhZ25lciBCb20gSmVzdXMifQ.v4BcDDTFqMXhpi7ofKmhDLkkiiNtPXYlvZGgS8gU38M
- *
- * /user/login:
- *   post:
- *     tags: 
- *       - User Requests
- *     summary: Login.
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/LoginUser'
- *     responses:
- *       200:
- *         description: Logged in.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 auth:
- *                   type: boolean
- *                   description: The authentication boolean value.
- *                   example: true
- *                 token:
- *                   type: string
- *                   description: The jsonwebtoken value.
- *                   example: eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiVmFnbmVyQm9tSmVzdXMiLCJVc2VybmFtZSI6IlZhZ25lciBCb20gSmVzdXMifQ.v4BcDDTFqMXhpi7ofKmhDLkkiiNtPXYlvZGgS8gU38M
  * 
- *  @swagger
- * /user/isAuthorized:
- *   get:
- *     tags: 
- *       - User Requests
- *     summary: Verifique a autorização do user.
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       200:
- *         description: Verifique a autorização do user.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/User'
  *
  * /sport/create:
  *   post:
  *     tags: 
  *       - Sports Requests
- *     summary: Crie uma pessoa no desporto.
+ *     summary: Intoduza um jogador infetado.
  *     requestBody:
  *       required: true
  *       content:
@@ -189,19 +176,20 @@
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: Crie uma pessoa no desporto.
+ *         description: Intoduza um jogador infetado.
  *         content:
  *           application/json:
  *             schema:
  *               type: string
- *               example: Todo created.
+ *               example: Atleta criado.
+ * 
  *       
  * /sport/list:
  *   get:
  *     tags: 
  *       - Sports Requests
- *     summary: Lista dos Pessoas nos Desportos.
- *     description: Retorna a lista de Pessoas nos Desportos
+ *     summary: Lista dos Atletas infetados.
+ *     description: Retorna a lista dos atletas infetados
  *     responses:
  *       200:
  *         description: OK.
@@ -210,14 +198,14 @@
  *   get:
  *     tags: 
  *       - Sports Requests
- *     summary: Consulte aqui todos os dados de uma respetiva Data de infeção de uma pessoa no desporto.
- *     description: Os dados podem ser obtidos com base a consulta realizada
+ *     summary: Pesquisa por Data de infeção.
+ *     description: Os dados são gerados através dos dados obtidos pelo sistema
  *     parameters:
  *       - in: query
  *         required: false
  *         name: datacovid
- *         description: Especifique a data no formato dd-mm-yy.
- *         example: 01-04-2019
+ *         description: Especifique a data no formato dd/mm/yy.
+ *         example: 18/5/2021
  *     responses:
  *       200:
  *         description: A lista das pessoas no desporto.
@@ -227,8 +215,8 @@
  *   get:
  *     tags: 
  *       - Sports Requests
- *     summary: Consulte aqui todos os dados de uma respetiva Nacionalidade de uma pessoa no desporto.
- *     description: Os dados podem ser obtidos com base a consulta realizada
+ *     summary: Pesquisa por Nacionalidade.
+ *     description: Os dados são gerados através dos dados obtidos pelo sistema
  *     parameters:
  *       - in: query
  *         required: false
@@ -236,7 +224,7 @@
  *         description: Especifique uma nacionalidade.
  *         example: Portugues
  *         schema:
- *             enum: ["Portuguesa", "Inglesa", "Espanhola"]
+ *             enum: ["Portugues", "Ingles", "Espanhol"]
  *     responses:
  *       200:
  *         description: A lista das pessoas no desporto.
@@ -245,31 +233,30 @@
  *   get:
  *     tags: 
  *       - Sports Requests
- *     summary: Consulte aqui todos os dados de um respetiv Nome de uma pessoa no desporto.
- *     description: Os dados podem ser obtidos com base a consulta realizada
+ *     summary: Pesquisa por Nome.
+ *     description: Os dados são gerados através dos dados obtidos pelo sistema
  *     parameters:
  *       - in: query
  *         required: false
  *         name: name
- *         description: Especifique um Nome.
- *         example: Fernando
+ *         description: Especifique o Nome.
+ *         example: Cristiano Ronaldo
  *     responses:
  *       200:
- *         description: A lista das pessoas no desporto.
+ *         description: A lista das pessoas infetadas no desporto.
  * 
  * 
  * /sport/search/estadoatual:
  *   get:
  *     tags: 
  *       - Sports Requests
- *     summary: Consulte aqui todos os dados de uma respetiva estado atual de uma pessoa no desporto.
- *     description: Os dados podem ser obtidos com base a consulta realizada
+ *     summary: Pesquisa por estados.
+ *     description: Os dados são gerados através dos dados obtidos pelo sistema
  *     parameters:
  *       - in: query
  *         required: false
  *         name: estadoatual
- *         description: Especifique uma estado atual.
- *         example: Infetado
+ *         description: Especifique o estado atual.
  *         schema:
  *             enum: ["Infetado", "Recuperado", "Falecido"]
  *     responses:
@@ -279,8 +266,8 @@
  *   get:
  *     tags: 
  *       - Sports Requests
- *     summary: Consulte aqui todos os dados de uma respetiva Equipa.
- *     description: Os dados podem ser obtidos com base a consulta realizada
+ *     summary: Pesquisa por Equipa.
+ *     description: Os dados são gerados através dos dados obtidos pelo sistema
  *     parameters:
  *       - in: query
  *         name: name
@@ -297,8 +284,8 @@
  *   get:
  *     tags: 
  *       - Sports Requests
- *     summary: Consulte aqui todos os dados de uma respetiva função de pessoa no desporto.
- *     description: Os dados podem ser obtidos com base a consulta realizada
+ *     summary: Pesquisa por função.
+ *     description: Os dados são gerados através dos dados obtidos pelo sistema
  *     parameters:
  *       - in: query
  *         name: funcao
@@ -306,7 +293,7 @@
  *         description: Especifique a função.
  *         example: Médico
  *         schema:
- *             enum: ["Jogador", "Treinador", "Fisioterapeuta"]
+ *             enum: ["Jogador", "Treinador", "Medico","Presidente"]
  *     responses:
  *       200:
  *         description: A lista das pessoas no desporto.
