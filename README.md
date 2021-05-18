@@ -21,8 +21,8 @@ Rebuild the project
 
 To incrementally build the project:
 
--npm run build
+- npm run build
 
 To force a full build by cleaning up cached artifacts:
 
--npm run rebuild
+- npm run rebuild
