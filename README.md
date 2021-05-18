@@ -21,18 +21,8 @@ Rebuild the project
 
 To incrementally build the project:
 
-npm run build
+-npm run build
 
 To force a full build by cleaning up cached artifacts:
 
-npm run rebuild
-
-Fix code style and formatting issues
-
-npm run lint
-
-To automatically fix such issues:
-
-npm run lint:fix
-
-Other useful commands
+-npm run rebuild
