@@ -1,4 +1,4 @@
-# APICoronaSports
+# APISports
 
 Install dependencies
 
